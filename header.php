@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -12,8 +16,18 @@
             <ul>
                 <li class="nav"><a href="index.php">Home</a></li>
                 <li class="nav"><a href="eventFeed.php">Event Feed</a></li>
-                <li class="nav"><a href="signUp.php">Sign Up</a></li>
-                <li class="nav"><a href="login.php">Log In</a></li>
+                <?php
+                    if(isset($_SESSION["usersid"]))
+                    {
+                        echo "<li class='nav'><a href='profile.php'>Profile</a></li>";
+                        echo "<li class='nav'><a href='includes/logout.inc.php'>Log Out</a></li>";
+                    }
+                    else
+                    {
+                        echo "<li class='nav'><a href='signUp.php'>Sign Up</a></li>";
+                        echo "<li class='nav'><a href='login.php'>Log In</a></li>";
+                    }
+                ?>
             </ul>
         </div>
     </nav>
