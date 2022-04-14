@@ -19,7 +19,7 @@ session_start();
                 <?php
                     if(isset($_SESSION["usersid"]))
                     {
-                        echo "<li class='nav'><a href='profile.php'>Profile</a></li>";
+                        echo "<li class='nav'><a href='addEvent.php'>Add Event</a></li>";
                         echo "<li class='nav'><a href='includes/logout.inc.php'>Log Out</a></li>";
                     }
                     else

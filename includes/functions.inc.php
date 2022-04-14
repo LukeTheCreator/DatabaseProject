@@ -157,3 +157,26 @@ function loginUser($conn, $username, $pwd)
         exit();
     }
 }
+
+function emptyInputEvent($name, $category, $description, $time, $date, $location, $phone, $email)
+{
+    $result;
+
+    if(empty($name) || empty($category) || empty($description) || empty($time) || empty($date) || empty($location) || empty($phone) || empty($email))
+    {
+        $result = true;
+    }
+    else
+    {
+        $result = false;
+    }
+
+    return $result;
+}
+
+function createEvent($name, $category, $description, $time, $date, $location, $phone, $email)
+{
+    //for future implementation
+    header("location: ../addEvent.php?error=none");
+    exit();
+}

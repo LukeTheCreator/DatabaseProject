@@ -1,7 +1,7 @@
 <?php include_once 'header.php' ?>
 
 <section>
-    <h2>Sign Up</h2>
+    <h1>Sign Up</h1>
     <div>
         <form action="includes/signup.inc.php" method="post">
             <input type="text" name="email" placeholder="Email..." />
@@ -24,7 +24,7 @@
         }
         else if($_GET["error"] == "invalidemail")
         {
-            echo "<p>Choose a proper email</p>";
+            echo "<p>Type email in correct format: example@email.com</p>";
         }
         else if($_GET["error"] == "passwordsdontmatch")
         {
