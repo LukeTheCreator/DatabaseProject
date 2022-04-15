@@ -185,6 +185,9 @@ function loginUser($conn, $username, $pwd)
         session_start();
         $_SESSION["usersid"] = $usernameExists["uid"];
         $_SESSION["usersname"] = $usernameExists["username"];
+        $_SESSION["university"] = $usernameExists["university"];
+        $_SESSION["admin"] = $usernameExists["admin"];
+        $_SESSION["super"] = $usernameExists["superadmin"];
         header("location: ../index.php");
         exit();
     }
@@ -294,4 +297,74 @@ function getComments($conn)
     $resultData = mysqli_stmt_get_result($stmt);
 
     return $resultData;
+}
+
+function emptyRSO($RSOname)
+{
+    $result;
+
+    if(empty($RSOname))
+    {
+        $result = true;
+    }
+    else
+    {
+        $result = false;
+    }
+
+    return $result;
+}
+
+function joinRSO($conn, $RSOname, $uid)
+{
+    $sql = "INSERT INTO rsomembership (RSOname, uid) VALUES (?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if(!mysqli_stmt_prepare($stmt, $sql))
+    {
+        header("location: ../addEvent.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ss", $RSOname, $uid);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../addEvent.php?error=joined");
+    exit();
+}
+
+function emptyRSOcreate($RSOname, $university)
+{
+    $result;
+
+    if(empty($RSOname) || empty($university))
+    {
+        $result = true;
+    }
+    else
+    {
+        $result = false;
+    }
+
+    return $result;
+}
+
+function createRSO($conn, $RSOname, $university, $uid)
+{
+    $sql = "INSERT INTO rsos (RSOname, university, admin) VALUES (?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if(!mysqli_stmt_prepare($stmt, $sql))
+    {
+        header("location: ../addEvent.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "sss", $RSOname, $university, $uid);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../addEvent.php?error=created");
+    exit();
 }

@@ -45,6 +45,60 @@
         }
     }
     ?>
+
+    <br />
+    <h1>Join an RSO</h1>
+    <div>
+        <form action="includes/joinRSO.inc.php" method="post">
+            <input type="text" name="RSOname" placeholder="RSO name..." />
+            <button type="submit" name="submit">Join</button>
+        </form>
+    </div>
+    <?php
+    if(isset($_GET["error"]))
+    {
+        if($_GET["error"] == "emptyinput")
+        {
+            echo "<p>Fill in all fields</p>";
+        }
+        else if($_GET["error"] == "joined")
+        {
+            echo "<p>Joined RSO successfully!</p>";
+        }
+    }
+    ?>
+
+    <br />
+    <h1>Create an RSO</h1>
+    <div>
+        <form action="includes/createRSO.inc.php" method="post">
+            <input type="text" name="RSOname" placeholder="RSO name..." />
+            <label for="university">Choose a University:</label>
+            <select id="university" name="university">
+              <option value="UCF">UCF</option>
+              <option value="USF">USF</option>
+            </select><br />
+            <button type="submit" name="submit">Create</button>
+        </form>
+    </div>
+    <?php
+    if(isset($_GET["error"]))
+    {
+        if($_GET["error"] == "emptyinput")
+        {
+            echo "<p>Fill in all fields</p>";
+        }
+        if($_GET["error"] == "notadmin")
+        {
+            echo "<p>Must be an admin to create an RSO</p>";
+        }
+        else if($_GET["error"] == "created")
+        {
+            echo "<p>Created RSO successfully!</p>";
+        }
+    }
+    ?>
+
 </section>
 
 <?php include_once 'footer.php'; ?>

@@ -57,6 +57,16 @@ session_start();
         $events = getEvents($conn);
         while($rows=$events->fetch_assoc())
         {
+            if($rows['category'] == "Private")
+            {
+                if(isset($_SESSION["university"]))
+                {
+                    if(strcmp($_SESSION["university"], $rows['university']) != 0)
+                    {
+                        continue;
+                    }
+                }
+            }
         ?>
         <tr>
             <td>
