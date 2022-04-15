@@ -20,7 +20,7 @@ function invalidUsername($username)
 {
     $result;
 
-    if(!preg_match("/^[a-zA-Z0-9]*$/", $username))
+    if(!preg_match("/^[a-zA-Z0-9 ]*$/", $username))
     {
         $result = true;
     }
@@ -93,9 +93,9 @@ function usernameExists($conn, $username, $email)
     }
 }
 
-function createUser($conn, $email, $username, $pwd, $pwdrepeat)
+function createUser($conn, $email, $username, $pwd)
 {
-    $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?);";
+    $sql = "INSERT INTO users (universityID, username, password, email, admin, superadmin) VALUES (?, ?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
 
     if(!mysqli_stmt_prepare($stmt, $sql))
@@ -105,8 +105,10 @@ function createUser($conn, $email, $username, $pwd, $pwdrepeat)
     }
 
     $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+    $zero = false;
+    $one = 1;
 
-    mysqli_stmt_bind_param($stmt, "sss", $username, $hashedPwd, $email);
+    mysqli_stmt_bind_param($stmt, "ssssss", $one, $username, $hashedPwd, $email, $zero, $zero);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 

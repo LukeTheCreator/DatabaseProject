@@ -5,3 +5,30 @@ CREATE TABLE `databaseproject`.`users` (
 `email` VARCHAR(128) NOT NULL , 
 PRIMARY KEY (`uid`), UNIQUE (`username`), UNIQUE (`email`)) 
 ENGINE = MyISAM;
+
+ALTER TABLE `users` ADD `admin` BIT(1) NOT NULL DEFAULT b'0' AFTER `email`;
+
+ALTER TABLE `users` ADD `superadmin` BIT(1) NOT NULL DEFAULT b'0' AFTER `admin`;
+
+CREATE TABLE `databaseproject`.`rsos` ( `RSOname` VARCHAR(128) NOT NULL , PRIMARY KEY (`RSOname`)) ENGINE = MyISAM;
+
+CREATE TABLE `databaseproject`.`createsrso` ( `studentAdmin` INT(20) NOT NULL , `RSOname` VARCHAR(128) NOT NULL , PRIMARY KEY (`studentAdmin`, `RSOname`)) ENGINE = MyISAM;
+
+ALTER TABLE createsrso
+	ADD CONSTRAINT uid
+    FOREIGN KEY (studentAdmin)
+    REFERENCES users(uid);
+
+
+ALTER TABLE `users` ADD `universityID` INT(20) NOT NULL AFTER `uid`;
+
+CREATE TABLE `databaseproject`.`universities` ( `name` VARCHAR(128) NOT NULL , `location` VARCHAR(128) NOT NULL , `description` VARCHAR(128) NOT NULL , `numStudents` INT(20) NOT NULL , PRIMARY KEY (`name`)) ENGINE = MyISAM;
+
+CREATE TABLE `databaseproject`.`events` ( `eventID` INT(20) NOT NULL AUTO_INCREMENT , `name` VARCHAR(128) NOT NULL , `category` VARCHAR(128) NOT NULL , `description` VARCHAR(128) NOT NULL , `time` TIME NOT NULL , `date` DATE NOT NULL , `phone` VARCHAR(128) NOT NULL , `email` VARCHAR(128) NOT NULL , `university` VARCHAR(128) NOT NULL , `RSOname` VARCHAR(128) NOT NULL , `location` VARCHAR(128) NOT NULL , `latitude` FLOAT(23,19) NOT NULL , `longitude` FLOAT(23,19) NOT NULL , PRIMARY KEY (`eventID`)) ENGINE = MyISAM;
+
+CREATE TABLE `databaseproject`.`comments` ( `commentID` INT(20) NOT NULL AUTO_INCREMENT , `eventID` INT(20) NOT NULL , `uid` INT(20) NOT NULL , `text` VARCHAR(128) NOT NULL , `rating` INT(20) NOT NULL , PRIMARY KEY (`commentID`)) ENGINE = MyISAM;
+
+CREATE TABLE `databaseproject`.`rsomembership` ( `RSOid` INT(20) NOT NULL AUTO_INCREMENT , `RSOname` VARCHAR(128) NOT NULL , `uid` INT(20) NOT NULL , PRIMARY KEY (`RSOid`)) ENGINE = MyISAM;
+
+ALTER TABLE `rsos` ADD `university` VARCHAR(128) NOT NULL AFTER `RSOname`, ADD `admin` INT(20) NOT NULL COMMENT 'corresponds to a uid' AFTER `university`;
+

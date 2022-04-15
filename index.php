@@ -1,23 +1,14 @@
 <?php include_once 'header.php' ?>
 
 
-<section class="index-intro">
-    <h1>This Is an Introduction</h1>
-    <p>
-        Here is an important paragraph about something very important yes indeed
-    </p>
+<section>
+    <h1>Welcome to the University Event Tracker!</h1>
+    <p>In this website you can check out all of the cool events going on at your university!</p>
+    <p>Just create an account and register with your university to start seeing what events are going on!</p>
 </section>
 <br />
-<section class="index-categories">
-    <h2>Some Basic Categories</h2>
-    <div class="wrapper">
-        <ul>
-            <li>Thing1</li>
-            <li>Thing2</li>
-            <li>Thing3</li>
-            <li>Thing4</li>
-        </ul>
-    </div>
+<section>
+    
 </section>
 
 

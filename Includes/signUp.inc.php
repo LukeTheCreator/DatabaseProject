@@ -40,7 +40,7 @@ if (isset($_POST["submit"]))
         exit();
     }
 
-    createUser($conn, $email, $username, $pwd, $pwdrepeat);
+    createUser($conn, $email, $username, $pwd);
 }
 else
 {
