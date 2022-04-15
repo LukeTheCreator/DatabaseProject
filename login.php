@@ -1,4 +1,4 @@
-<?php include_once 'header.php' ?>
+<?php include_once 'header.php'; ?>
 
 <section>
     <h1>Log In</h1>
@@ -24,4 +24,4 @@
     ?>
 </section>
 
-<?php include_once 'footer.php' ?>
+<?php include_once 'footer.php'; ?>

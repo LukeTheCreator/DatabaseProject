@@ -1,10 +1,10 @@
 <?php
 
-function emptyInputSignup($email, $username, $pwd, $pwdrepeat)
+function emptyInputSignup($university, $email, $username, $pwd, $pwdrepeat)
 {
     $result;
 
-    if(empty($email) || empty($username) || empty($pwd) || empty($pwdrepeat))
+    if(empty($university) || empty($email) || empty($username) || empty($pwd) || empty($pwdrepeat))
     {
         $result = true;
     }
@@ -93,9 +93,25 @@ function usernameExists($conn, $username, $email)
     }
 }
 
-function createUser($conn, $email, $username, $pwd)
+function adminSuperAdmin($admin, $superadmin)
 {
-    $sql = "INSERT INTO users (universityID, username, password, email, admin, superadmin) VALUES (?, ?, ?, ?, ?, ?);";
+    $result;
+
+    if($admin == $superadmin && $admin == true)
+    {
+        $result = true;
+    }
+    else
+    {
+        $result = false;
+    }
+
+    return $result;
+}
+
+function createUser($conn, $university, $email, $username, $pwd, $admin, $superadmin)
+{
+    $sql = "INSERT INTO users (university, username, password, email, admin, superadmin) VALUES (?, ?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
 
     if(!mysqli_stmt_prepare($stmt, $sql))
@@ -105,10 +121,24 @@ function createUser($conn, $email, $username, $pwd)
     }
 
     $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
-    $zero = false;
-    $one = 1;
+    if(is_null($admin))
+    {
+        $admin = 0;
+    }
+    else
+    {
+        $admin = 1;
+    }
+    if(is_null($superadmin))
+    {
+        $superadmin = 0;
+    }
+    else
+    {
+        $superadmin = 1;
+    }
 
-    mysqli_stmt_bind_param($stmt, "ssssss", $one, $username, $hashedPwd, $email, $zero, $zero);
+    mysqli_stmt_bind_param($stmt, "ssssss", $university, $username, $hashedPwd, $email, $admin, $superadmin);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
@@ -160,11 +190,11 @@ function loginUser($conn, $username, $pwd)
     }
 }
 
-function emptyInputEvent($name, $category, $description, $time, $date, $location, $phone, $email)
+function emptyInputEvent($name, $category, $description, $time, $date, $phone, $email, $university, $location, $latitude, $longitude)
 {
     $result;
 
-    if(empty($name) || empty($category) || empty($description) || empty($time) || empty($date) || empty($location) || empty($phone) || empty($email))
+    if(empty($name) || empty($category) || empty($description) || empty($time) || empty($date) || empty($location) || empty($phone) || empty($email) || empty($university) || empty($latitude) || empty($longitude))
     {
         $result = true;
     }
@@ -176,9 +206,92 @@ function emptyInputEvent($name, $category, $description, $time, $date, $location
     return $result;
 }
 
-function createEvent($name, $category, $description, $time, $date, $location, $phone, $email)
+function createEvent($conn, $name, $category, $description, $time, $date, $phone, $email, $university, $rsoname, $location, $latitude, $longitude)
 {
-    //for future implementation
+    $sql = "INSERT INTO events (name, category, description, time, date, phone, email, university, rsoname, location, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if(!mysqli_stmt_prepare($stmt, $sql))
+    {
+        header("location: ../signUp.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ssssssssssss", $name, $category, $description, $time, $date, $phone, $email, $university, $rsoname, $location, $latitude, $longitude);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
     header("location: ../addEvent.php?error=none");
     exit();
+}
+
+function getEvents($conn)
+{
+    $sql = "SELECT * FROM events ORDER BY eventID ASC;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if(!mysqli_stmt_prepare($stmt, $sql))
+    {
+        header("location: ../signUp.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    return $resultData;
+}
+
+function emptyComment($eventID, $text, $rating)
+{
+    $result;
+
+    if(empty($eventID) || empty($text) || empty($rating))
+    {
+        $result = true;
+    }
+    else
+    {
+        $result = false;
+    }
+
+    return $result;
+}
+
+function createComment($conn, $eventID, $uid, $text, $rating)
+{
+    $sql = "INSERT INTO comments (eventID, uid, text, rating) VALUES (?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if(!mysqli_stmt_prepare($stmt, $sql))
+    {
+        header("location: ../eventFeed.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ssss", $eventID, $uid, $text, $rating);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../eventFeed.php?error=none");
+    exit();
+}
+
+function getComments($conn)
+{
+    $sql = "SELECT * FROM comments ORDER BY commentID ASC;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if(!mysqli_stmt_prepare($stmt, $sql))
+    {
+        header("location: ../signUp.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    return $resultData;
 }
