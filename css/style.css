@@ -1,91 +1,105 @@
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
-    background-color: white;
-    margin-bottom: 60px;
+  background-color: white;
+  margin-bottom: 60px;
 }
 
-.wrapper{
-    width: 900px;
-    margin: 0 auto;
+.wrapper {
+  width: 900px;
+  margin: 0 auto;
 }
 
-ul{
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
+ul {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
 }
 
-li{
-    display: inline;
-    color: black;
-    margin: 20px;
-    font-size: 24px;
-    line-height: 50px;
+li {
+  display: inline;
+  color: black;
+  margin: 20px;
+  font-size: 24px;
+  line-height: 50px;
 }
 
 .nav {
-    display: inline;
-    color: white;
-    margin: 20px;
-    font-size: 24px;
-    line-height: 50px;
+  display: inline;
+  color: white;
+  margin: 20px;
+  font-size: 24px;
+  line-height: 50px;
 }
 
 nav {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 p {
-    text-align: center;
+  text-align: center;
 }
 
-h1, h2, h3, h4, h5, h6, p{
-    font-family: 'Roboto', sans-serif;
-    color: black;
-    line-height: 24px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  line-height: 24px;
 }
 
-h1{
-    font-weight: 600;
-    font-size: 32px;
-    padding: 20px 0;
-    text-align: center;
+h1 {
+  font-weight: 600;
+  font-size: 32px;
+  padding: 20px 0;
+  text-align: center;
 }
 
 h2 {
-    font-weight: 600;
-    text-align: center;
+  font-weight: 600;
+  text-align: center;
 }
 
 table {
-    margin: 0 auto;
-    font-size: large;
-    border: 1px solid black;
+  margin: 0 auto;
+  font-size: large;
+  border: 1px solid black;
 }
 
 td {
-    background-color: #E4F5D4;
-    border: 1px solid black;
+  background-color: #e4f5d4;
+  border: 1px solid black;
 }
 
 th,
 td {
-    font-weight: bold;
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center;
+  font-weight: bold;
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
 }
 
 td {
-    font-weight: lighter;
+  font-weight: lighter;
+}
+
+#map {
+  height: 400px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
+  background-color: aliceblue;
 }

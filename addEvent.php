@@ -1,4 +1,11 @@
+<script type="module" src="./javascript/map.js"></script>
+
 <?php include_once 'header.php'; ?>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGYbHVdd5QHlYHwhMJ7fwtcylPI0I0JA4&callback=initMap">
+</script>
 
 <section>
     <h1>Add Event</h1>
@@ -22,9 +29,10 @@
               <option value="USF">USF</option>
             </select><br />
             <input type="text" name="rsoname" placeholder="RSO name..." />
+            <div id="map"></div>
             <input type="text" name="location" placeholder="Location..." />
-            <input type="number" name="latitude" placeholder="Latitude..." />
-            <input type="number" name="longitude" placeholder="Longitude..." /><br />
+            <input id="Latitude" type="number" step="any" name="latitude" placeholder="Latitude..." />
+            <input id="Longitude" type="number" step="any" name="longitude" placeholder="Longitude..." /><br />
             <button type="submit" name="submit">Create Event</button>
         </form>
     </div>
